@@ -4,16 +4,22 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
+import com.taapires.android_nd_spotifystreamer_1.Adapters.ArtistsAdapter;
+import com.taapires.android_nd_spotifystreamer_1.Models.ArtistParcelable;
 import com.taapires.android_nd_spotifystreamer_1.R;
 
+import java.util.ArrayList;
 
-public class SearchActivity extends FragmentActivity {
+
+public class Search extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
     }
 
 

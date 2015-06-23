@@ -28,14 +28,16 @@ import retrofit.client.Response;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class SearchActivityFragment extends Fragment {
+public class SearchFragment extends Fragment {
 
     // construct the data source
     private ArrayList<ArtistParcelable> artists = new ArrayList<>();
     private ArtistsAdapter adapter;
 
-    public SearchActivityFragment() {
+    public SearchFragment() {
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +45,7 @@ public class SearchActivityFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_search, container, false);
 
+        ListView listView = (ListView) rootView.findViewById(R.id.listView_artists); // get the listview
         final EditText search = (EditText) rootView.findViewById(R.id.editText_searchArtist);
         Button btn = (Button) rootView.findViewById(R.id.btn);
 
@@ -61,7 +64,6 @@ public class SearchActivityFragment extends Fragment {
         // create the adapter to convert the array to views
         adapter = new ArtistsAdapter(getActivity(), artists);
         // attach the adapter to a listview
-        ListView listView = (ListView) rootView.findViewById(R.id.listView_artists); // get the listview
         listView.setAdapter(adapter); // populate the listview with the adapter
 
         // populate the listview

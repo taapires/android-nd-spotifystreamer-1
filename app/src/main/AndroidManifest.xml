@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".UI.SearchActivity"
+            android:name=".UI.Search"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,10 +21,10 @@
         <activity
             android:name=".UI.TopTracks"
             android:label="@string/title_activity_top_tracks"
-            android:parentActivityName=".UI.SearchActivity" >
+            android:parentActivityName=".UI.Search" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".UI.SearchActivity" />
+                android:value=".UI.Search" />
         </activity>
     </application>
 
