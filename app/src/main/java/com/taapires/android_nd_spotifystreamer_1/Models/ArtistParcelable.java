@@ -3,10 +3,13 @@ package com.taapires.android_nd_spotifystreamer_1.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import kaaes.spotify.webapi.android.models.Artist;
+
 /**
  * Created by telmo on 23/06/15.
  */
 public class ArtistParcelable implements Parcelable {
+    public String id;
     public String artistName;
     public String artistImage;
 
@@ -19,6 +22,12 @@ public class ArtistParcelable implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.artistName);
         dest.writeString(this.artistImage);
+    }
+
+    public ArtistParcelable(Artist artist) {
+        this.id = artist.id;
+        this.artistName = artist.name;
+        this.artistImage = artist.images.get(0).url;
     }
 
     public ArtistParcelable(String artistName, String artistImage) {
