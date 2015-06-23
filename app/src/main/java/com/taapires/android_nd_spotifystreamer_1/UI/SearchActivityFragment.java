@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.taapires.android_nd_spotifystreamer_1.Models.ArtistParcelable;
@@ -15,11 +16,21 @@ import com.taapires.android_nd_spotifystreamer_1.R;
 
 import java.util.ArrayList;
 
+import kaaes.spotify.webapi.android.SpotifyApi;
+import kaaes.spotify.webapi.android.SpotifyService;
+import kaaes.spotify.webapi.android.models.Artist;
+import kaaes.spotify.webapi.android.models.ArtistsPager;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class SearchActivityFragment extends Fragment {
+
+    private ArtistsAdapter adapter;
 
     public SearchActivityFragment() {
     }
@@ -29,6 +40,9 @@ public class SearchActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_search, container, false);
+
+        final EditText search = (EditText) rootView.findViewById(R.id.editText_searchArtist);
+        Button btn = (Button) rootView.findViewById(R.id.btn);
 
         /*String[] myStrings = {
                 "Telmo",
@@ -45,18 +59,23 @@ public class SearchActivityFragment extends Fragment {
         // construct the data source
         ArrayList<ArtistParcelable> artists = new ArrayList<ArtistParcelable>();
         // create the adapter to convert the array to views
-        ArtistsAdapter adapter = new ArtistsAdapter(getActivity(), artists);
+        adapter = new ArtistsAdapter(getActivity(), artists);
         // attach the adapter to a listview
         ListView listView = (ListView) rootView.findViewById(R.id.listView_artists); // get the listview
         listView.setAdapter(adapter); // populate the listview with the adapter
 
         // populate the listview
-        ArtistParcelable newArtist = new ArtistParcelable("Telmo", "http://i.imgur.com/DvpvklR.png");
+        /*ArtistParcelable newArtist = new ArtistParcelable("Telmo", "http://i.imgur.com/DvpvklR.png");
         ArtistParcelable newArtist2 = new ArtistParcelable("Pires", "http://i.imgur.com/DvpvklR.png");
         adapter.add(newArtist);
-        adapter.add(newArtist2);
+        adapter.add(newArtist2);*/
 
-        Button btn = (Button) rootView.findViewById(R.id.btn);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchArtist(search.getText());
+            }
+        });
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,5 +86,31 @@ public class SearchActivityFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    private void searchArtist(CharSequence query) {
+        SpotifyApi api = new SpotifyApi();
+        SpotifyService spotify = api.getService();
+
+        spotify.searchArtists(query.toString(), new Callback<ArtistsPager>() {
+            @Override
+            public void success(final ArtistsPager artistsPager, Response response) {
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        for (Artist artist : artistsPager.artists.items) {
+                            adapter.add(new ArtistParcelable(artist));
+                        }
+                    }
+                });
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
     }
 }
