@@ -30,9 +30,14 @@ import retrofit.client.Response;
  */
 public class SearchFragment extends Fragment {
 
+    private final String BUNDLE_ARTISTS = "BUNDLE_ARTISTS";
+    private final String BUNDLE_SEARCH_QUERY = "BUNDLE_SEARCH_QUERY";
+
     // construct the data source
     private ArrayList<ArtistParcelable> artists = new ArrayList<>();
     private ArtistsAdapter adapter;
+
+    private String searchQuery;
 
     public SearchFragment() {
     }
@@ -48,6 +53,14 @@ public class SearchFragment extends Fragment {
         ListView listView = (ListView) rootView.findViewById(R.id.listView_artists); // get the listview
         final EditText search = (EditText) rootView.findViewById(R.id.editText_searchArtist);
         Button btn = (Button) rootView.findViewById(R.id.btn);
+
+        // save the artists and search query to the instance state
+        if (savedInstanceState != null) {
+            artists = savedInstanceState.getParcelableArrayList(BUNDLE_ARTISTS);
+            searchQuery = savedInstanceState.getString(BUNDLE_SEARCH_QUERY);
+        } else {
+            artists = new ArrayList<>();
+        }
 
         /*String[] myStrings = {
                 "Telmo",
@@ -88,6 +101,15 @@ public class SearchFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        // save the artists and the search query
+        outState.putParcelableArrayList(BUNDLE_ARTISTS, artists);
+        outState.putString(BUNDLE_SEARCH_QUERY, searchQuery);
     }
 
     private void searchArtist(CharSequence query) {
