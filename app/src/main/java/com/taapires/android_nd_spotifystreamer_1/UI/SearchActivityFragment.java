@@ -30,6 +30,8 @@ import retrofit.client.Response;
  */
 public class SearchActivityFragment extends Fragment {
 
+    // construct the data source
+    private ArrayList<ArtistParcelable> artists = new ArrayList<>();
     private ArtistsAdapter adapter;
 
     public SearchActivityFragment() {
@@ -56,8 +58,6 @@ public class SearchActivityFragment extends Fragment {
                 R.id.textView_artist_name, // the id of the textview to populate
                 artists);*/
 
-        // construct the data source
-        ArrayList<ArtistParcelable> artists = new ArrayList<ArtistParcelable>();
         // create the adapter to convert the array to views
         adapter = new ArtistsAdapter(getActivity(), artists);
         // attach the adapter to a listview
@@ -95,6 +95,9 @@ public class SearchActivityFragment extends Fragment {
         spotify.searchArtists(query.toString(), new Callback<ArtistsPager>() {
             @Override
             public void success(final ArtistsPager artistsPager, Response response) {
+
+                // clear the artists array on search
+                artists.clear();
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
