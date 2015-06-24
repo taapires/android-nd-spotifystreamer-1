@@ -2,17 +2,22 @@ package com.taapires.android_nd_spotifystreamer_1.UI;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.taapires.android_nd_spotifystreamer_1.Models.ArtistParcelable;
 import com.taapires.android_nd_spotifystreamer_1.Adapters.ArtistsAdapter;
 import com.taapires.android_nd_spotifystreamer_1.R;
+import com.taapires.android_nd_spotifystreamer_1.Utils.Utility;
 
 import java.util.ArrayList;
 
@@ -33,6 +38,8 @@ public class SearchFragment extends Fragment {
     private final String BUNDLE_ARTISTS = "BUNDLE_ARTISTS";
     private final String BUNDLE_SEARCH_QUERY = "BUNDLE_SEARCH_QUERY";
 
+    private String mLocation;
+
     // construct the data source
     private ArrayList<ArtistParcelable> artists = new ArrayList<>();
     private ArtistsAdapter adapter;
@@ -48,11 +55,13 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        mLocation = Utility.getPreferredLocation(getActivity());
+
         View rootView = inflater.inflate(R.layout.fragment_search, container, false);
 
         ListView listView = (ListView) rootView.findViewById(R.id.listView_artists); // get the listview
         final EditText search = (EditText) rootView.findViewById(R.id.editText_searchArtist);
-        Button btn = (Button) rootView.findViewById(R.id.btn);
+        //Button btn = (Button) rootView.findViewById(R.id.btn);
 
         // save the artists and search query to the instance state
         if (savedInstanceState != null) {
@@ -85,20 +94,41 @@ public class SearchFragment extends Fragment {
         adapter.add(newArtist);
         adapter.add(newArtist2);*/
 
-        search.setOnClickListener(new View.OnClickListener() {
+        // search for an artist com enter text
+        /*search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 searchArtist(search.getText());
             }
+        });*/
+
+        search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (event != null && event.getAction() == KeyEvent.ACTION_DOWN) return true;
+                searchArtist(v.getText());
+                return true;
+            }
         });
 
+        // listview click item handler
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("LOGAMOS: ", mLocation);
+                ArtistParcelable artist = adapter.getItem(position);
+                Intent intent = new Intent(getActivity(), TopTracks.class).putExtra("ARTIST", artist);
+                startActivity(intent);
+            }
+        });
+/*
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), TopTracks.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         return rootView;
     }
