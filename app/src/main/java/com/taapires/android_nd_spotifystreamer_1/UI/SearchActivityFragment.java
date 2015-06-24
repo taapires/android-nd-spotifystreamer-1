@@ -38,10 +38,10 @@ public class SearchActivityFragment extends Fragment {
     private final String BUNDLE_SEARCH_QUERY = "BUNDLE_SEARCH_QUERY";
 
     // construct the data source
-    private ArrayList<ArtistParcelable> artists = new ArrayList<>();
-    private ArtistsAdapter adapter;
+    private ArrayList<ArtistParcelable> mArtists = new ArrayList<>();
+    private ArtistsAdapter mAdapter;
 
-    private String searchQuery;
+    private String mSearchQuery;
 
     public SearchActivityFragment() {
     }
@@ -58,10 +58,10 @@ public class SearchActivityFragment extends Fragment {
 
         // save the artists and search query to the instance state
         if (savedInstanceState != null) {
-            artists = savedInstanceState.getParcelableArrayList(BUNDLE_ARTISTS);
-            searchQuery = savedInstanceState.getString(BUNDLE_SEARCH_QUERY);
+            mArtists = savedInstanceState.getParcelableArrayList(BUNDLE_ARTISTS);
+            mSearchQuery = savedInstanceState.getString(BUNDLE_SEARCH_QUERY);
         } else {
-            artists = new ArrayList<>();
+            mArtists = new ArrayList<>();
         }
 
         /*String[] myStrings = {
@@ -77,9 +77,9 @@ public class SearchActivityFragment extends Fragment {
                 artists);*/
 
         // create the adapter to convert the array to views
-        adapter = new ArtistsAdapter(getActivity(), artists);
+        mAdapter = new ArtistsAdapter(getActivity(), mArtists);
         // attach the adapter to a listview
-        listView.setAdapter(adapter); // populate the listview with the adapter
+        listView.setAdapter(mAdapter); // populate the listview with the adapter
 
         // populate the listview
         /*ArtistParcelable newArtist = new ArtistParcelable("Telmo", "http://i.imgur.com/DvpvklR.png");
@@ -108,7 +108,7 @@ public class SearchActivityFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ArtistParcelable artist = adapter.getItem(position);
+                ArtistParcelable artist = mAdapter.getItem(position);
                 Intent intent = new Intent(getActivity(), TopTracksActivity.class).putExtra("ARTIST", artist);
                 startActivity(intent);
             }
@@ -130,8 +130,8 @@ public class SearchActivityFragment extends Fragment {
         super.onSaveInstanceState(outState);
 
         // save the artists and the search query
-        outState.putParcelableArrayList(BUNDLE_ARTISTS, artists);
-        outState.putString(BUNDLE_SEARCH_QUERY, searchQuery);
+        outState.putParcelableArrayList(BUNDLE_ARTISTS, mArtists);
+        outState.putString(BUNDLE_SEARCH_QUERY, mSearchQuery);
     }
 
     private void searchArtist(CharSequence query) {
@@ -143,7 +143,7 @@ public class SearchActivityFragment extends Fragment {
             public void success(final ArtistsPager artistsPager, Response response) {
 
                 // clear the artists array on search
-                artists.clear();
+                mArtists.clear();
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -153,7 +153,7 @@ public class SearchActivityFragment extends Fragment {
                             Toast.makeText(getActivity(), "Artist not found", Toast.LENGTH_SHORT).show();
                         } else {
                             for (Artist artist : artistsPager.artists.items) {
-                                adapter.add(new ArtistParcelable(artist));
+                                mAdapter.add(new ArtistParcelable(artist));
                             }
                         }
                     }

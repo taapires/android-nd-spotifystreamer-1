@@ -33,7 +33,7 @@ import retrofit.client.Response;
  */
 public class TopTracksActivityFragment extends Fragment {
 
-    private TracksAdapter adapter;
+    private TracksAdapter mAdapter;
 
     public TopTracksActivityFragment() {
     }
@@ -47,10 +47,10 @@ public class TopTracksActivityFragment extends Fragment {
         // construct the data source
         ArrayList<TrackParcelable> tracks = new ArrayList<>();
         // create the adapter to convert the array to views
-        adapter = new TracksAdapter(getActivity(), tracks);
+        mAdapter = new TracksAdapter(getActivity(), tracks);
         // attach the adapter to a listview
         ListView listView = (ListView) rootView.findViewById(R.id.listView_toptracks); // get the listview
-        listView.setAdapter(adapter); // populate the listview with the adapter
+        listView.setAdapter(mAdapter); // populate the listview with the adapter
 
         // populate the listview
        /* TrackParcelable newTrack = new TrackParcelable("Telmo", "Pires", "http://i.imgur.com/DvpvklR.png");
@@ -87,7 +87,7 @@ public class TopTracksActivityFragment extends Fragment {
                             Toast.makeText(getActivity(), "Tracks not found", Toast.LENGTH_SHORT).show();
                         } else {
                             for (Track track : tracks.tracks) {
-                                adapter.add(new TrackParcelable(track));
+                                mAdapter.add(new TrackParcelable(track));
                             }
                         }
                     }
