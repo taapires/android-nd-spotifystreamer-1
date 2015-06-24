@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -72,12 +73,15 @@ public class SearchActivityFragment extends Fragment {
         // attach the adapter to a listview
         listView.setAdapter(mAdapter); // populate the listview with the adapter
 
+        // search artist
         mSearchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (event != null && event.getAction() == KeyEvent.ACTION_DOWN) return true;
-                searchArtist(v.getText());
-                return true;
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    searchArtist(v.getText());
+                    return true;
+                }
+                return false;
             }
         });
 
