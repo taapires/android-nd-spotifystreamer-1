@@ -2,10 +2,12 @@ package com.taapires.android_nd_spotifystreamer_1.UI;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.taapires.android_nd_spotifystreamer_1.Models.ArtistParcelable;
 import com.taapires.android_nd_spotifystreamer_1.R;
@@ -29,11 +31,11 @@ import retrofit.client.Response;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class TopTracksFragment extends Fragment {
+public class TopTracksActivityFragment extends Fragment {
 
     private TracksAdapter adapter;
 
-    public TopTracksFragment() {
+    public TopTracksActivityFragment() {
     }
 
     @Override
@@ -80,8 +82,13 @@ public class TopTracksFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        for (Track track : tracks.tracks) {
-                            adapter.add(new TrackParcelable(track));
+
+                        if (tracks.tracks.isEmpty()) {
+                            Toast.makeText(getActivity(), "Tracks not found", Toast.LENGTH_SHORT).show();
+                        } else {
+                            for (Track track : tracks.tracks) {
+                                adapter.add(new TrackParcelable(track));
+                            }
                         }
                     }
                 });
@@ -89,7 +96,7 @@ public class TopTracksFragment extends Fragment {
 
             @Override
             public void failure(RetrofitError error) {
-
+                Log.d("Top tracks failure", error.toString());
             }
         });
     }

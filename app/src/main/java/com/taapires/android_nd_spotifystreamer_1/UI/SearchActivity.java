@@ -15,7 +15,7 @@ import com.taapires.android_nd_spotifystreamer_1.Settings.SettingsActivity;
 import java.util.ArrayList;
 
 
-public class Search extends FragmentActivity {
+public class SearchActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

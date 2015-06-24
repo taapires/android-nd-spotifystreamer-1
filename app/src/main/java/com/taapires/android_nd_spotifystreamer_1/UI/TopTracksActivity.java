@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import com.taapires.android_nd_spotifystreamer_1.R;
 
 
-public class TopTracks extends FragmentActivity {
+public class TopTracksActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

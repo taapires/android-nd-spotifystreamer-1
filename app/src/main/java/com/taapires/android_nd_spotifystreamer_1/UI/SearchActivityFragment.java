@@ -2,7 +2,6 @@ package com.taapires.android_nd_spotifystreamer_1.UI;
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -15,10 +14,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.taapires.android_nd_spotifystreamer_1.Models.ArtistParcelable;
 import com.taapires.android_nd_spotifystreamer_1.Adapters.ArtistsAdapter;
+import com.taapires.android_nd_spotifystreamer_1.Models.ArtistParcelable;
 import com.taapires.android_nd_spotifystreamer_1.R;
-import com.taapires.android_nd_spotifystreamer_1.Utils.Utility;
 
 import java.util.ArrayList;
 
@@ -34,7 +32,7 @@ import retrofit.client.Response;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class SearchFragment extends Fragment {
+public class SearchActivityFragment extends Fragment {
 
     private final String BUNDLE_ARTISTS = "BUNDLE_ARTISTS";
     private final String BUNDLE_SEARCH_QUERY = "BUNDLE_SEARCH_QUERY";
@@ -45,10 +43,8 @@ public class SearchFragment extends Fragment {
 
     private String searchQuery;
 
-    public SearchFragment() {
+    public SearchActivityFragment() {
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -113,7 +109,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ArtistParcelable artist = adapter.getItem(position);
-                Intent intent = new Intent(getActivity(), TopTracks.class).putExtra("ARTIST", artist);
+                Intent intent = new Intent(getActivity(), TopTracksActivity.class).putExtra("ARTIST", artist);
                 startActivity(intent);
             }
         });
@@ -167,7 +163,7 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void failure(RetrofitError error) {
-
+                Log.d("Artists failure", error.toString());
             }
         });
     }
