@@ -52,12 +52,6 @@ public class TopTracksActivityFragment extends Fragment {
         ListView listView = (ListView) rootView.findViewById(R.id.listView_toptracks); // get the listview
         listView.setAdapter(mAdapter); // populate the listview with the adapter
 
-        // populate the listview
-       /* TrackParcelable newTrack = new TrackParcelable("Telmo", "Pires", "http://i.imgur.com/DvpvklR.png");
-        TrackParcelable newTrack2 = new TrackParcelable("Test", "André", "http://i.imgur.com/DvpvklR.png");
-        adapter.add(newTrack);
-        adapter.add(newTrack2);*/
-
         getTopTracks();
 
         return rootView;

@@ -57,7 +57,6 @@ public class SearchActivityFragment extends Fragment {
 
         ListView listView = (ListView) rootView.findViewById(R.id.listView_artists); // get the listview
         mSearchEditText = (EditText) rootView.findViewById(R.id.editText_searchArtist);
-        //Button btn = (Button) rootView.findViewById(R.id.btn);
 
         // save the artists and search query to the instance state
         if (savedInstanceState != null) {
@@ -67,36 +66,11 @@ public class SearchActivityFragment extends Fragment {
             mArtists = new ArrayList<>();
         }
 
-        /*String[] myStrings = {
-                "Telmo",
-                "Tete"
-        };
-
-        List<String> artists = new ArrayList<>(Arrays.asList(myStrings));
-*/
-        /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.list_item_artist, // the name of the layout ID
-                R.id.textView_artist_name, // the id of the textview to populate
-                artists);*/
 
         // create the adapter to convert the array to views
         mAdapter = new ArtistsAdapter(getActivity(), mArtists);
         // attach the adapter to a listview
         listView.setAdapter(mAdapter); // populate the listview with the adapter
-
-        // populate the listview
-        /*ArtistParcelable newArtist = new ArtistParcelable("Telmo", "http://i.imgur.com/DvpvklR.png");
-        ArtistParcelable newArtist2 = new ArtistParcelable("Pires", "http://i.imgur.com/DvpvklR.png");
-        adapter.add(newArtist);
-        adapter.add(newArtist2);*/
-
-        // search for an artist com enter text
-        /*search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                searchArtist(search.getText());
-            }
-        });*/
 
         mSearchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -116,14 +90,6 @@ public class SearchActivityFragment extends Fragment {
                 startActivity(intent);
             }
         });
-/*
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), TopTracks.class);
-                startActivity(intent);
-            }
-        });*/
 
         return rootView;
     }
