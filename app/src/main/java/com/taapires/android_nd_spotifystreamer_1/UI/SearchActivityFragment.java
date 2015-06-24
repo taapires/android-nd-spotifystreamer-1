@@ -1,6 +1,7 @@
 package com.taapires.android_nd_spotifystreamer_1.UI;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -42,6 +44,7 @@ public class SearchActivityFragment extends Fragment {
     private ArtistsAdapter mAdapter;
 
     private String mSearchQuery;
+    private EditText mSearchEditText;
 
     public SearchActivityFragment() {
     }
@@ -53,7 +56,7 @@ public class SearchActivityFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_search, container, false);
 
         ListView listView = (ListView) rootView.findViewById(R.id.listView_artists); // get the listview
-        final EditText search = (EditText) rootView.findViewById(R.id.editText_searchArtist);
+        mSearchEditText = (EditText) rootView.findViewById(R.id.editText_searchArtist);
         //Button btn = (Button) rootView.findViewById(R.id.btn);
 
         // save the artists and search query to the instance state
@@ -95,7 +98,7 @@ public class SearchActivityFragment extends Fragment {
             }
         });*/
 
-        search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        mSearchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (event != null && event.getAction() == KeyEvent.ACTION_DOWN) return true;
@@ -135,6 +138,12 @@ public class SearchActivityFragment extends Fragment {
     }
 
     private void searchArtist(CharSequence query) {
+
+        // hide keyboard on search
+        mSearchEditText.clearFocus();
+        InputMethodManager in = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        in.hideSoftInputFromWindow(mSearchEditText.getWindowToken(), 0);
+
         SpotifyApi api = new SpotifyApi();
         SpotifyService spotify = api.getService();
 
