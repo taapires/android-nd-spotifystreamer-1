@@ -3,10 +3,13 @@ package com.taapires.android_nd_spotifystreamer_1.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import kaaes.spotify.webapi.android.models.Track;
+
 /**
  * Created by telmo on 23/06/15.
  */
 public class TrackParcelable implements Parcelable {
+    public String id;
     public String trackName;
     public String albumName;
     public String albumImage;
@@ -29,7 +32,15 @@ public class TrackParcelable implements Parcelable {
         this.albumImage = albumImage;
     }
 
+    public TrackParcelable(Track track) {
+        this.id = track.id;
+        this.trackName = track.name;
+        this.albumName = track.album.name;
+        if (!track.album.images.isEmpty()) this.albumImage = track.album.images.get(0).url;
+    }
+
     protected TrackParcelable(Parcel in) {
+        this.id = in.readString();
         this.trackName = in.readString();
         this.albumName = in.readString();
         this.albumImage = in.readString();
