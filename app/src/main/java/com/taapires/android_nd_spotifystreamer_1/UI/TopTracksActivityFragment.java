@@ -1,5 +1,6 @@
 package com.taapires.android_nd_spotifystreamer_1.UI;
 
+import android.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,6 +45,10 @@ public class TopTracksActivityFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_top_tracks, container, false);
 
+        // set the subtitle to be equal to the artist name
+        ActionBar ab = getActivity().getActionBar();
+        ab.setSubtitle(getArtist().artistName);
+
         // construct the data source
         ArrayList<TrackParcelable> tracks = new ArrayList<>();
         // create the adapter to convert the array to views
@@ -56,6 +61,8 @@ public class TopTracksActivityFragment extends Fragment {
 
         return rootView;
     }
+
+
 
     // get the artist from the search activity
     private ArtistParcelable getArtist() {
