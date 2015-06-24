@@ -1,12 +1,18 @@
 package com.taapires.android_nd_spotifystreamer_1.Settings;
 
+import android.annotation.TargetApi;
+import android.app.ActionBar;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.taapires.android_nd_spotifystreamer_1.R;
+import com.taapires.android_nd_spotifystreamer_1.Utils.Utility;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings.
@@ -52,7 +58,13 @@ public class SettingsActivity extends PreferenceActivity
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object value) {
-        String stringValue = value.toString();
+        String stringValue = value.toString().toUpperCase(); // uppercase to match our country codes list
+
+        // validate if the country code is valid
+        if (!Utility.getCountryCodes().contains(stringValue)) {
+            Toast.makeText(this, "Country code not found", Toast.LENGTH_SHORT).show();
+            return false; // change country code to the old valid country code
+        }
 
         if (preference instanceof ListPreference) {
             // For list preferences, look up the correct display value in
