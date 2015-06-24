@@ -28,7 +28,6 @@ public class ArtistParcelable implements Parcelable {
     public ArtistParcelable(Artist artist) {
         this.id = artist.id;
         this.artistName = artist.name;
-        //this.artistImage = artist.images.get(0).url;
         if (!artist.images.isEmpty()) artistImage = artist.images.get(0).url;
     }
 
