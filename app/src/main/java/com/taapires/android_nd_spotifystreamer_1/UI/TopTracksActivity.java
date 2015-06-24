@@ -1,12 +1,13 @@
 package com.taapires.android_nd_spotifystreamer_1.UI;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.taapires.android_nd_spotifystreamer_1.R;
+import com.taapires.android_nd_spotifystreamer_1.Settings.SettingsActivity;
 
 
 public class TopTracksActivity extends FragmentActivity {
@@ -34,6 +35,7 @@ public class TopTracksActivity extends FragmentActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
 
