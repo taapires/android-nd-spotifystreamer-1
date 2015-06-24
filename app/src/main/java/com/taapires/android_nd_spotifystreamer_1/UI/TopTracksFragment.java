@@ -11,6 +11,7 @@ import com.taapires.android_nd_spotifystreamer_1.Models.ArtistParcelable;
 import com.taapires.android_nd_spotifystreamer_1.R;
 import com.taapires.android_nd_spotifystreamer_1.Models.TrackParcelable;
 import com.taapires.android_nd_spotifystreamer_1.Adapters.TracksAdapter;
+import com.taapires.android_nd_spotifystreamer_1.Utils.Utility;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,7 +68,7 @@ public class TopTracksFragment extends Fragment {
 
     private void getTopTracks() {
         Map<String, Object> params = new HashMap<>();
-        params.put("country", "PT");
+        params.put("country", Utility.getPreferredLocation(getActivity()));
 
         SpotifyApi api = new SpotifyApi();
         SpotifyService spotify = api.getService();
