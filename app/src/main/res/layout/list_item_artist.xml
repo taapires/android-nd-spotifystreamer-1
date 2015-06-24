@@ -16,5 +16,6 @@
         android:layout_height="100dp"
         android:text="Artist"
         android:id="@+id/textView_artist_name"
-        android:gravity="center_vertical" />
+        android:gravity="center_vertical"
+        android:layout_marginLeft="10dp" />
 </LinearLayout>
