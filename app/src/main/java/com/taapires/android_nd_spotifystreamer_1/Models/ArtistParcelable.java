@@ -20,6 +20,7 @@ public class ArtistParcelable implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
         dest.writeString(this.artistName);
         dest.writeString(this.artistImage);
     }
@@ -37,6 +38,7 @@ public class ArtistParcelable implements Parcelable {
     }
 
     protected ArtistParcelable(Parcel in) {
+        this.id = in.readString();
         this.artistName = in.readString();
         this.artistImage = in.readString();
     }
