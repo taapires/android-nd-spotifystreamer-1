@@ -1,18 +1,13 @@
 package com.taapires.android_nd_spotifystreamer_1.UI;
 
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 
-import com.taapires.android_nd_spotifystreamer_1.Adapters.ArtistsAdapter;
-import com.taapires.android_nd_spotifystreamer_1.Models.ArtistParcelable;
 import com.taapires.android_nd_spotifystreamer_1.R;
 import com.taapires.android_nd_spotifystreamer_1.Settings.SettingsActivity;
-
-import java.util.ArrayList;
 
 
 public class SearchActivity extends FragmentActivity {
