@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.taapires.android_nd_spotifystreamer_1.Models.ArtistParcelable;
 import com.taapires.android_nd_spotifystreamer_1.Adapters.ArtistsAdapter;
@@ -38,8 +39,6 @@ public class SearchFragment extends Fragment {
     private final String BUNDLE_ARTISTS = "BUNDLE_ARTISTS";
     private final String BUNDLE_SEARCH_QUERY = "BUNDLE_SEARCH_QUERY";
 
-    private String mLocation;
-
     // construct the data source
     private ArrayList<ArtistParcelable> artists = new ArrayList<>();
     private ArtistsAdapter adapter;
@@ -54,8 +53,6 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        mLocation = Utility.getPreferredLocation(getActivity());
 
         View rootView = inflater.inflate(R.layout.fragment_search, container, false);
 
@@ -115,7 +112,6 @@ public class SearchFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("LOGAMOS: ", mLocation);
                 ArtistParcelable artist = adapter.getItem(position);
                 Intent intent = new Intent(getActivity(), TopTracks.class).putExtra("ARTIST", artist);
                 startActivity(intent);
@@ -156,8 +152,13 @@ public class SearchFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        for (Artist artist : artistsPager.artists.items) {
-                            adapter.add(new ArtistParcelable(artist));
+
+                        if (artistsPager.artists.items.isEmpty()) {
+                            Toast.makeText(getActivity(), "Artist not found", Toast.LENGTH_SHORT).show();
+                        } else {
+                            for (Artist artist : artistsPager.artists.items) {
+                                adapter.add(new ArtistParcelable(artist));
+                            }
                         }
                     }
                 });
