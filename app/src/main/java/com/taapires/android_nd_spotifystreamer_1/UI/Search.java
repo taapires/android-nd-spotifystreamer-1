@@ -1,5 +1,6 @@
 package com.taapires.android_nd_spotifystreamer_1.UI;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,6 +10,7 @@ import android.widget.ListView;
 import com.taapires.android_nd_spotifystreamer_1.Adapters.ArtistsAdapter;
 import com.taapires.android_nd_spotifystreamer_1.Models.ArtistParcelable;
 import com.taapires.android_nd_spotifystreamer_1.R;
+import com.taapires.android_nd_spotifystreamer_1.Settings.SettingsActivity;
 
 import java.util.ArrayList;
 
@@ -39,6 +41,7 @@ public class Search extends FragmentActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
 
