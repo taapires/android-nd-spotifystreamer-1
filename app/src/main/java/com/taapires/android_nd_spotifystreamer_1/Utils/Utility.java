@@ -20,11 +20,13 @@ public class Utility {
                 context.getString(R.string.pref_location_default));
     }
 
-    public static List<String> getCountryCodes() {
-        String[] countryCodes = {
+    public static List<String> getCountryCodes(Context context) {
+        /*String[] countryCodes = {
                 "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "US", "UY"
-        };
+        };*/
 
+        // get country codes from the resources
+        String[] countryCodes = context.getResources().getStringArray(R.array.country_codes);
         return Arrays.asList(countryCodes);
     }
 }
