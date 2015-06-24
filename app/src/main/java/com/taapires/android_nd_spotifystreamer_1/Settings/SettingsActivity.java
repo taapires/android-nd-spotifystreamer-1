@@ -61,7 +61,7 @@ public class SettingsActivity extends PreferenceActivity
         String stringValue = value.toString().toUpperCase(); // uppercase to match our country codes list
 
         // validate if the country code is valid
-        if (!Utility.getCountryCodes().contains(stringValue)) {
+        if (!Utility.getCountryCodes(this).contains(stringValue)) {
             Toast.makeText(this, "Country code not found", Toast.LENGTH_SHORT).show();
             return false; // change country code to the old valid country code
         }
