@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -67,7 +68,6 @@ public class SearchActivityFragment extends Fragment {
             mArtists = new ArrayList<>();
         }
 
-
         // create the adapter to convert the array to views
         mAdapter = new ArtistsAdapter(getActivity(), mArtists);
         // attach the adapter to a listview
@@ -79,6 +79,8 @@ public class SearchActivityFragment extends Fragment {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     searchArtist(v.getText());
+                    v.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+                    Toast.makeText(getActivity(), "Searching for " + v.getText(), Toast.LENGTH_SHORT).show();
                     return true;
                 }
                 return false;
@@ -96,6 +98,7 @@ public class SearchActivityFragment extends Fragment {
         });
 
         return rootView;
+
     }
 
     @Override
