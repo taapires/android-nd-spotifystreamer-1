@@ -9,13 +9,14 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/imageView_artist"
+        android:contentDescription="@string/img_placeholder"
         android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="100dp"
-        android:text="Artist"
+        android:text="@string/artist"
         android:id="@+id/textView_artist_name"
         android:gravity="center_vertical"
-        android:layout_marginLeft="10dp" />
+        android:layout_marginStart="10dp" />
 </LinearLayout>

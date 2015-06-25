@@ -9,9 +9,8 @@ import kaaes.spotify.webapi.android.models.Track;
  * Created by telmo on 23/06/15.
  */
 public class TrackParcelable implements Parcelable {
-    public String id;
-    public String trackName;
-    public String albumName;
+    public final String trackName;
+    public final String albumName;
     public String albumImage;
 
     @Override
@@ -26,21 +25,13 @@ public class TrackParcelable implements Parcelable {
         dest.writeString(this.albumImage);
     }
 
-    public TrackParcelable(String trackName, String albumName, String albumImage) {
-        this.trackName = trackName;
-        this.albumName = albumName;
-        this.albumImage = albumImage;
-    }
-
     public TrackParcelable(Track track) {
-        this.id = track.id;
         this.trackName = track.name;
         this.albumName = track.album.name;
         if (!track.album.images.isEmpty()) this.albumImage = track.album.images.get(0).url;
     }
 
-    protected TrackParcelable(Parcel in) {
-        this.id = in.readString();
+    private TrackParcelable(Parcel in) {
         this.trackName = in.readString();
         this.albumName = in.readString();
         this.albumImage = in.readString();

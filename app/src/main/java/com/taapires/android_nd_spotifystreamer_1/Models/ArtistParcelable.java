@@ -9,8 +9,8 @@ import kaaes.spotify.webapi.android.models.Artist;
  * Created by telmo on 23/06/15.
  */
 public class ArtistParcelable implements Parcelable {
-    public String id;
-    public String artistName;
+    public final String id;
+    public final String artistName;
     public String artistImage;
 
     @Override
@@ -31,12 +31,7 @@ public class ArtistParcelable implements Parcelable {
         if (!artist.images.isEmpty()) artistImage = artist.images.get(0).url;
     }
 
-    public ArtistParcelable(String artistName, String artistImage) {
-        this.artistName = artistName;
-        this.artistImage = artistImage;
-    }
-
-    protected ArtistParcelable(Parcel in) {
+    private ArtistParcelable(Parcel in) {
         this.id = in.readString();
         this.artistName = in.readString();
         this.artistImage = in.readString();

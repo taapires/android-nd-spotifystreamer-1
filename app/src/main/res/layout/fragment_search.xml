@@ -12,7 +12,7 @@
         android:id="@+id/editText_searchArtist"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:hint="Search..."
+        android:hint="@string/search_hint"
         android:inputType="text"
         android:imeOptions="actionSearch" />
 

@@ -47,6 +47,7 @@ public class TopTracksActivityFragment extends Fragment {
 
         // set the subtitle to be equal to the artist name
         ActionBar ab = getActivity().getActionBar();
+        assert ab != null;
         ab.setSubtitle(getArtist().artistName);
 
         // construct the data source

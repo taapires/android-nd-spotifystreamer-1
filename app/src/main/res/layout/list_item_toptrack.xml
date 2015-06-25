@@ -9,25 +9,26 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/imageView_topTrack_albumImage"
+        android:contentDescription="@string/img_placeholder"
         android:src="@mipmap/ic_launcher" />
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp">
+        android:layout_marginStart="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:text="Track Name"
+            android:text="@string/track"
             android:id="@+id/textView_topTrack_trackName"
             android:gravity="center_vertical" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:text="Album Name"
+            android:text="@string/album"
             android:id="@+id/textView_topTrack_albumName"
             android:gravity="center_vertical" />
     </LinearLayout>

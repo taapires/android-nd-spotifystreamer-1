@@ -1,15 +1,11 @@
 package com.taapires.android_nd_spotifystreamer_1.Settings;
 
-import android.annotation.TargetApi;
-import android.app.ActionBar;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.taapires.android_nd_spotifystreamer_1.R;
 import com.taapires.android_nd_spotifystreamer_1.Utils.Utility;
