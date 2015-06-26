@@ -4,7 +4,9 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -23,6 +25,8 @@ import com.taapires.android_nd_spotifystreamer_1.Models.ArtistParcelable;
 import com.taapires.android_nd_spotifystreamer_1.R;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import kaaes.spotify.webapi.android.SpotifyApi;
 import kaaes.spotify.webapi.android.SpotifyService;
@@ -81,9 +85,55 @@ public class SearchActivityFragment extends Fragment {
                     searchArtist(v.getText());
                     v.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
                     Toast.makeText(getActivity(), "Searching for " + v.getText(), Toast.LENGTH_SHORT).show();
+
+                    // hide keyboard on search
+                    mSearchEditText.clearFocus();
+                    InputMethodManager in = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    in.hideSoftInputFromWindow(mSearchEditText.getWindowToken(), 0);
+
                     return true;
                 }
                 return false;
+            }
+        });
+
+        mSearchEditText.addTextChangedListener(new TextWatcher() {
+            private Timer timer = new Timer();
+            private final long DELAY = 500; // in ms
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(final Editable s) {
+
+                if (s.length() < 3) {
+                    mArtists.clear();
+                    mAdapter.notifyDataSetChanged();
+                } else if (s.length() >= 3) {
+                    timer.cancel();
+                    timer = new Timer();
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    searchArtist(s.toString());
+                                }
+                            });
+                        }
+
+                    }, DELAY);
+                }
+
             }
         });
 
@@ -113,9 +163,9 @@ public class SearchActivityFragment extends Fragment {
     private void searchArtist(CharSequence query) {
 
         // hide keyboard on search
-        mSearchEditText.clearFocus();
-        InputMethodManager in = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        in.hideSoftInputFromWindow(mSearchEditText.getWindowToken(), 0);
+        //mSearchEditText.clearFocus();
+        //InputMethodManager in = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        //in.hideSoftInputFromWindow(mSearchEditText.getWindowToken(), 0);
 
         SpotifyApi api = new SpotifyApi();
         SpotifyService spotify = api.getService();
@@ -138,6 +188,7 @@ public class SearchActivityFragment extends Fragment {
                                 mAdapter.add(new ArtistParcelable(artist));
                             }
                         }
+                        //mAdapter.notifyDataSetChanged();
                     }
                 });
 
