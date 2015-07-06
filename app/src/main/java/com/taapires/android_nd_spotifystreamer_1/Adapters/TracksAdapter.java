@@ -52,7 +52,11 @@ public class TracksAdapter extends ArrayAdapter<TrackParcelable> {
         // populate the data into the template view using the data object
         viewHolder.trackName.setText(track.trackName);
         viewHolder.albumName.setText(track.albumName);
-        Picasso.with(getContext()).load(track.albumImage).into(viewHolder.albumImage);
+        if (track.albumImage != null) {
+            Picasso.with(getContext()).load(track.albumImage).into(viewHolder.albumImage);
+        } else {
+            Picasso.with(getContext()).load(R.mipmap.image_na).into(viewHolder.albumImage);
+        }
 
         //return super.getView(position, convertView, parent);
         return convertView;

@@ -130,10 +130,8 @@ public class SearchActivityFragment extends Fragment {
                                 }
                             });
                         }
-
                     }, DELAY);
                 }
-
             }
         });
 
@@ -200,4 +198,5 @@ public class SearchActivityFragment extends Fragment {
             }
         });
     }
+
 }

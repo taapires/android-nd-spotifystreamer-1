@@ -50,7 +50,13 @@ public class ArtistsAdapter extends ArrayAdapter<ArtistParcelable> {
 
         // populate the data into the template view using the data object
         viewHolder.artistName.setText(artist.artistName);
-        Picasso.with(getContext()).load(artist.artistImage).into(viewHolder.artistImage);
+        if (artist.artistImage != null) {
+            Picasso.with(getContext()).load(artist.artistImage).into(viewHolder.artistImage);
+        } else {
+            Picasso.with(getContext()).load(R.mipmap.image_na).into(viewHolder.artistImage);
+        }
+
+
 
         //return super.getView(position, convertView, parent);
         return convertView;
