@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -194,7 +193,7 @@ public class SearchActivityFragment extends Fragment {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.d("Artists failure", error.toString());
+                Toast.makeText(getActivity(), "Network error", Toast.LENGTH_SHORT).show();
             }
         });
     }
